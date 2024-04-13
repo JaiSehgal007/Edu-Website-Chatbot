@@ -1,18 +1,32 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Layout from './pages/Layout';
 import Login from './pages/Login';
 
 const App = () => {
-  // Check if the user is authenticated
-  const isAuthenticated = false; // Replace with your authentication logic
+  // State to track authentication status
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+
+  useEffect(() => {
+    // Check if there's an authentication token in localStorage
+    const authToken = localStorage.getItem('authToken');
+    if (authToken) {
+      // If authToken exists, set isAuthenticated to true
+      setIsAuthenticated(true);
+    }
+  }, []); // Run this effect only once on component mount
+
+  // Function to set isAuthenticated to true after successful login
+  const handleLoginSuccess = () => {
+    setIsAuthenticated(true);
+  };
 
   return (
     <Router>
       <Routes>
         <Route
           path="/"
-          element={isAuthenticated ? <Layout /> : <Login />}
+          element={isAuthenticated ? <Layout /> : <Login onLoginSuccess={handleLoginSuccess} />}
         />
       </Routes>
     </Router>

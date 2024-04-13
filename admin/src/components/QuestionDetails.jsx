@@ -8,7 +8,7 @@ const QuestionDetails = ({ question, onAnswerSubmit }) => {
   };
 
   const handleSubmit = () => {
-    onAnswerSubmit(question.id, answer);
+    onAnswerSubmit(question.id, answer, question.title, question.description);
     setAnswer('');
   };
 

@@ -1,1 +1,41 @@
 .env
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Caches and logs
+*.log
+logs/
+*.cache/
+
+# Virtual environment
+venv/
+env/
+ENV/
+
+# Database
+db.sqlite3
+*.sqlite3
+
+# Static files
+/static/
+
+# Media files
+/media/
+
+# Secret key
+*.secret
+
+# Local development settings
+local_settings.py
+
+# IDE files
+.idea/
+.vscode/
+*.sublime-project
+*.sublime-workspace
+
+# Temporary files
+*.swp
+*~

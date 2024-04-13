@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import Header from '../components/Header';
 import Sidebar from '../components/Sidebar';
 import QuestionDetails from '../components/QuestionDetails';
+import { getCsrfToken } from './utils';
+import axios from 'axios';
 
 const Layout = () => {
   const [questions, setQuestions] = useState([]);
@@ -14,25 +16,13 @@ const Layout = () => {
 
   const fetchQuestions = async () => {
     try {
-      const response = await fetch('/api/questions');
+      const authToken = localStorage.getItem('authToken');
+      const response = await fetch('http://localhost:8000/api/unanswered-questions/', {
+        headers: {
+          'Authorization': `Token ${authToken}`,
+        },
+      });
       const data = await response.json();
-    //   const data=[
-    //       {
-    //         id: 1,
-    //         title: "What is React?",
-    //         description: "I'm new to web development and want to know what React is and how it works."
-    //       },
-    //       {
-    //         id: 2,
-    //         title: "How to handle form submissions in React?",
-    //         description: "I'm building a form in React, and I'm not sure how to handle form submissions and send data to the server."
-    //       },
-    //       {
-    //         id: 3,
-    //         title: "Understanding React Hooks",
-    //         description: "I'm struggling to understand React Hooks and when to use them. Can someone explain them in detail?"
-    //       },
-    //     ]
       setQuestions(data);
     } catch (error) {
       console.error('Error fetching questions:', error);
@@ -43,24 +33,30 @@ const Layout = () => {
     setSelectedQuestion(question);
   };
 
-  const handleAnswerSubmit = async (questionId, answer) => {
+  const handleAnswerSubmit = async (questionId, answer, oldTitle, oldDescription) => {
     try {
-      const response = await fetch(`/api/questions/${questionId}/answer`, {
-        method: 'POST',
+      const authToken = localStorage.getItem('authToken');
+      const csrfToken = getCsrfToken();
+      const response = await fetch(`http://localhost:8000/api/questions/${questionId}/`, {
+        method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
+          'Authorization': `Token ${authToken}`,
+          'X-CSRFToken': csrfToken,
         },
-        body: JSON.stringify({ answer }),
+        body: JSON.stringify({ 
+          answer,
+          title: oldTitle,
+          description: oldDescription
+        }),
       });
-
+  
       if (response.ok) {
-        // Handle successful answer submission
         console.log('Answer submitted successfully');
         setSelectedQuestion(null);
         fetchQuestions();
       } else {
-        // Handle error
-        console.error('Error submitting answer');
+        console.error('Error submitting answer:', response.statusText);
       }
     } catch (error) {
       console.error('Error submitting answer:', error);
