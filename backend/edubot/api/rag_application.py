@@ -2,7 +2,6 @@ import pandas as pd
 import numpy as np
 import os
 from dotenv import load_dotenv
-from langchain_community.embeddings import HuggingFaceEmbeddings
 from langchain_pinecone import PineconeVectorStore
 from langchain.chains import create_history_aware_retriever, create_retrieval_chain
 from langchain.chains.combine_documents import create_stuff_documents_chain
@@ -11,7 +10,7 @@ from langchain_core.chat_history import BaseChatMessageHistory
 from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
 from langchain_core.runnables.history import RunnableWithMessageHistory
 from langchain_core.messages import ChatMessage, HumanMessage, AIMessage
-from langchain_cohere import ChatCohere
+from langchain_cohere import ChatCohere,CohereEmbeddings
 
 load_dotenv()
 
@@ -22,7 +21,7 @@ os.environ["COHERE_API_KEY"]  = os.getenv('COHERE_API_KEY')
 
 
 ### initialize retriever and llm ###
-embeddings = HuggingFaceEmbeddings()
+embeddings =  CohereEmbeddings(model="embed-english-light-v3.0")
 index_name = "edu-website-chatbot"
 vectorstore = PineconeVectorStore(index_name=index_name, embedding=embeddings)
 retriever = vectorstore.as_retriever(search_kwargs={'k': 3})

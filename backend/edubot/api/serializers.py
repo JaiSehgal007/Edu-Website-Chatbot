@@ -5,7 +5,7 @@ from .models import Question, Feedback
 class QuestionSerializer(serializers.ModelSerializer):
     class Meta:
         model = Question
-        fields = ['id', 'session_id', 'question', 'answer', 'chat_history', 'status']
+        fields = ['id', 'session_id', 'question', 'answer', 'chat_history', 'status','answer_count']
 
 class FeedbackSerializer(serializers.ModelSerializer):
     class Meta:

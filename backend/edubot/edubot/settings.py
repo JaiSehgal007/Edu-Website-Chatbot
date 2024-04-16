@@ -65,6 +65,7 @@ CORS_ALLOWED_ORIGINS = [
     'http://localhost:3000',
     'http://localhost:5173',
     'http://localhost:5174',
+    'https://edu-website-client.vercel.app',
 ]
 
 ROOT_URLCONF = 'edubot.urls'

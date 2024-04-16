@@ -206,7 +206,7 @@ const ChatInterface = () => {
           setFeedbackGiven(false);
           setQuestionId(data.question_id);
   
-          if (data.answer === 'Please wait for a while, our team will answer you soon.') {
+          if (data.answer === 'Please wait for a while, our team will answer you soon.' || data.answer.length === 0) {
             // If response is still "Please wait...", fetch again after one minute
             setTimeout(fetchAnswer, 20000); // Wait for one minute (60000 milliseconds)
           } else {

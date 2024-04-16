@@ -56,19 +56,25 @@ class QuestionView(APIView):
                     question_obj.save()
             else:
                 answer, new_chat_history = answer_question(question, chat_history)
-                question_data = {
-                    'session_id': session_id,
-                    'question': question,
-                    'answer': answer,
-                    'chat_history': new_chat_history,
-                    'status': 'answered',
-                } if answer!='Please wait for a while, our team will answer you soon.' else {
-                    'session_id': session_id,
-                    'question': question,
-                    'answer': answer,
-                    'chat_history': new_chat_history,
-                    'status': 'unanswered',
-                }
+                question_data=None
+                if answer!='Please wait for a while, our team will answer you soon.':
+                    question_data = {
+                        'session_id': session_id,
+                        'question': question,
+                        'answer': answer,
+                        'chat_history': new_chat_history,
+                        'status': 'answered',
+                        'answer_count': 1,
+                    }  
+                else: 
+                    question_data = {
+                        'session_id': session_id,
+                        'question': question,
+                        'answer': answer,
+                        'chat_history': new_chat_history,
+                        'status': 'unanswered',
+                        'answer_count': 1,
+                    }
                 serializer = QuestionSerializer(data=question_data)
                 if serializer.is_valid():
                     question_obj = serializer.save()
