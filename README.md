@@ -8,10 +8,10 @@ EduBot utilizes a RAG model with a Pinecone vector database, working in collabor
 ## Workflow
 
 <div style="display:flex; flex-wrap: wrap; align-items:center; justify-content:center">
+  <img src="resources/img_4.png" alt="Workflow Diagram 4" style="width:60%; padding:5px;">
+  <img src="resources/img_3.png" alt="Workflow Diagram 3" style="width:60%; padding:5px;">
   <img src="resources/img_1.png" alt="Workflow Diagram 1" style="width:60%; padding:5px;">
   <img src="resources/img_2.png" alt="Workflow Diagram 2" style="width:60%; padding:5px;">
-  <img src="resources/img_3.png" alt="Workflow Diagram 3" style="width:60%; padding:5px;">
-  <img src="resources/img_4.png" alt="Workflow Diagram 4" style="width:60%; padding:5px;">
 </div>
 
 
