@@ -17,7 +17,7 @@ const Layout = () => {
   const fetchQuestions = async () => {
     try {
       const authToken = localStorage.getItem('authToken');
-      const response = await fetch('http://localhost:8000/api/unanswered-questions/', {
+      const response = await fetch('http://localhost:8000/api/admin/questions/', {
         headers: {
           'Authorization': `Token ${authToken}`,
         },
@@ -37,7 +37,7 @@ const Layout = () => {
     try {
       const authToken = localStorage.getItem('authToken');
       const csrfToken = getCsrfToken();
-      const response = await fetch(`http://localhost:8000/api/questions/${questionId}/`, {
+      const response = await fetch(`http://localhost:8000/api/admin/questions/${questionId}/`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',

@@ -11,7 +11,7 @@ const Sidebar = ({ questions, onQuestionClick }) => {
             className="bg-white p-4 mb-2 rounded shadow cursor-pointer hover:bg-gray-100"
             onClick={() => onQuestionClick(question)}
           >
-            {question.title}
+            {question.question}
           </li>
         ))}
       </ul>

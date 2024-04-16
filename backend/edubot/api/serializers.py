@@ -1,16 +1,16 @@
 from rest_framework import serializers
 from django.contrib.auth.models import User
-from .models import Question
+from .models import Question, Feedback
 
 class QuestionSerializer(serializers.ModelSerializer):
     class Meta:
         model = Question
-        fields = ['id', 'title', 'description', 'answer']
+        fields = ['id', 'session_id', 'question', 'answer', 'chat_history', 'status']
 
-    def validate_answer(self, value):
-        print("Validating answer:", value)
-        # Add custom validation logic here if needed
-        return value
+class FeedbackSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Feedback
+        fields = ['id', 'question', 'answer', 'feedback']
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:

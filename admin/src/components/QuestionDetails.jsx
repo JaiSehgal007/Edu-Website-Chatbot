@@ -15,7 +15,15 @@ const QuestionDetails = ({ question, onAnswerSubmit }) => {
   return (
     <div className="p-4">
       <h2 className="text-lg font-bold mb-4">{question.title}</h2>
-      <p className="mb-4">{question.description}</p>
+      <div className="mb-4">
+        {Object.keys(question.chat_history).length !== 0 && (
+          question.chat_history.map((item, index) => (
+            <div key={index}>
+              <strong>{item.role}</strong>: {item.content}
+            </div>
+          ))
+        )}
+      </div>
       <textarea
         className="w-full h-40 p-2 border border-gray-300 rounded mb-4"
         value={answer}
